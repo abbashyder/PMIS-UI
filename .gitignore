@@ -1,0 +1,27 @@
+# Node modules
+/node_modules
+
+# Next.js build output
+/.next
+/out
+
+# Environment variables
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDEs and editors
+.vscode/
+
+# TypeScript
+*.tsbuildinfo
+
+# Production
+/build
+
+# vercel
+.vercel
