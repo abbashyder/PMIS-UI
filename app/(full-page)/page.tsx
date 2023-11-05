@@ -6,13 +6,11 @@ import Link from 'next/link';
 import { StyleClass } from 'primereact/styleclass';
 import { Button } from 'primereact/button';
 import { Ripple } from 'primereact/ripple';
-import { LayoutContext } from '@/layout/context/layoutcontext';
 import { NodeRef } from '@/types/types';
 import { classNames } from 'primereact/utils';
 
-const LandingPage = () => {
+const HomePage = () => {
     const [isHidden, setIsHidden] = useState(false);
-    const { layoutConfig } = useContext(LayoutContext);
     const menuRef = useRef<HTMLElement | null>(null);
 
     const toggleMenuItemClick = () => {
@@ -45,8 +43,12 @@ const LandingPage = () => {
                             </li>
                         </ul>
                         <div className="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0">
-                            <Button label="Login" text rounded className="border-none font-light line-height-2 text-blue-500"></Button>
+                            <Link href="/login">
+                                <Button label="Login" text rounded className="border-none font-light line-height-2 text-blue-500"></Button>
+                            </Link>
+                            <Link href="/signup">
                             <Button label="Register" rounded className="border-none ml-5 font-light line-height-2 bg-blue-500 text-white"></Button>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -277,4 +279,4 @@ const LandingPage = () => {
     );
 };
 
-export default LandingPage;
+export default HomePage;
