@@ -1,38 +1,48 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 import { useRouter } from 'next/navigation';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
 import { Password } from 'primereact/password';
 import { LayoutContext } from '@/layout/context/layoutcontext';
 import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
+import { useAuth } from '@/hooks/useAuth';
+import { redirectIfAuthenticated } from '@/utils/auth/redirectIfAuthenticated';
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [checked, setChecked] = useState(false);
     const { layoutConfig } = useContext(LayoutContext);
+    const [loading, setLoading] = useState(true);
+    const { isAuthenticated, login } = useAuth();
     const router = useRouter();
 
-    // Function to handle login
-    const handleLogin = async () => {
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, password }),
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            // Handle success, e.g., store the token, redirect to dashboard, etc.
-            router.push('/dashboard'); // Redirect to the dashboard
+    useEffect(() => {
+        if (isAuthenticated) {
+            router.replace('/dashboard');
         } else {
+            setLoading(false);
+        }
+    }, [isAuthenticated, router]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    // Function to handle login using the useAuth hook
+    const handleLogin = async () => {
+        try {
+            // Use the login function from the useAuth hook
+            await login(username, password);
+
+            // Redirect to the dashboard on successful login
+            router.push('/dashboard');
+        } catch (error) {
+            console.error('Login failed:', error);
             // Handle errors, e.g., show an error message
-            console.error('Login failed');
         }
     };
 

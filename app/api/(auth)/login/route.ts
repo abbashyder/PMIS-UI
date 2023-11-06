@@ -1,5 +1,3 @@
-// app/api/auth/login.ts
-
 import { NextRequest } from 'next/server';
 import { createNextResponse } from '@/utils/api/response';
 
