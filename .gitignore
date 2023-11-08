@@ -1,5 +1,11 @@
 # Node modules
 /node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Testing & Coverage
+/coverage
 
 # Next.js build output
 /.next
@@ -10,6 +16,7 @@
 # OS files
 .DS_Store
 Thumbs.db
+*.pem
 
 # Logs
 *.log
@@ -19,6 +26,7 @@ Thumbs.db
 
 # TypeScript
 *.tsbuildinfo
+next-env.d.ts
 
 # Production
 /build
