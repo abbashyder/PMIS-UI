@@ -2,7 +2,7 @@ import { useContext, useEffect, useCallback } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 
 export function useAuth() {
-  const { user, isAuthenticated, setUser, setIsAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
   // Function to validate the token and set user state
   const validateToken = useCallback(async () => {
@@ -19,20 +19,17 @@ export function useAuth() {
 
       if (response.ok) {
         const data = await response.json();
-        setUser(data.user);
         setIsAuthenticated(true);
       } else {
         // Token validation failed
-        setUser(null);
         setIsAuthenticated(false);
         // Optionally, clear the client-side state or redirect to login
       }
     } catch (error) {
       console.error('Token validation error:', error);
-      setUser(null);
       setIsAuthenticated(false);
     }
-  }, [setUser, setIsAuthenticated]);
+  }, [setIsAuthenticated]);
 
   // Call validateToken on hook initialization
   useEffect(() => {
@@ -41,7 +38,6 @@ export function useAuth() {
 
   const login = async (username: string, password: string) => {
     try {
-      // Make a POST request to the login API route
       const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
@@ -52,24 +48,24 @@ export function useAuth() {
 
       if (response.ok) {
         const data = await response.json();
-        // Update context with the user and authentication status
-        setUser(data.user); // Assuming 'data.user' contains user information
         setIsAuthenticated(true);
-        // You might want to handle token storage here if not already handled in the API route
+        // No redirect here, just return success status
+        return true;
       } else {
-        // Handle errors, e.g., invalid credentials
-        throw new Error('Login failed');
+        // Handle different error statuses here
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Login failed');
       }
     } catch (error) {
-      console.error(error);
       setIsAuthenticated(false);
+      // Return or throw the error for the component to handle
+      throw error;
     }
   };
 
   const logout = () => {
     // Perform logout
     // Clear user context and tokens
-    setUser(null);
     setIsAuthenticated(false);
     // Clear tokens from storage/cookies
   };
@@ -80,12 +76,10 @@ export function useAuth() {
   };
 
   return {
-    user,
     isAuthenticated,
     login,
     logout,
     refresh,
-    setUser,
     setIsAuthenticated,
   };
 }

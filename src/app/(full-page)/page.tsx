@@ -25,7 +25,8 @@ const HomePage = () => {
             await login(username, password);
             router.push('/dashboard');
         } catch (error) {
-            console.error('Login failed:', error);
+            // The error should be thrown here if login fails
+            throw error;
         }
     };
 
