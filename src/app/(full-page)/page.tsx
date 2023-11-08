@@ -7,7 +7,7 @@ import LoginForm from '@/components/auth/LoginForm';
 import LoadingIndicator from '@/components/ui/LoadingIndicator';
 import { useAuth } from '@/hooks/useAuth';
 
-const LoginPage = () => {
+const HomePage = () => {
     const router = useRouter();
     const { isAuthenticated, login } = useAuth();
     const [loading, setLoading] = useState(true);
@@ -54,4 +54,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default HomePage;
