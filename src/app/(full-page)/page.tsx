@@ -1,13 +1,7 @@
-import { Box, Button } from '@mui/material';
+import { redirect } from 'next/navigation';
 
 const HomePage = () => {
-    return (
-        <Box sx={{ height: 1 }}>
-            <Button variant="contained" href="/login">
-                Link
-            </Button>
-        </Box>
-    );
+    redirect('/dashboard');
 };
 
 export default HomePage;
