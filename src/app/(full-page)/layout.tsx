@@ -1,10 +1,7 @@
 import React from 'react';
 
-interface SimpleLayoutProps {
-    children: React.ReactNode;
-}
 
-export default function SimpleLayout({ children }: SimpleLayoutProps) {
+export default function FullPageLayout({ children }: { children: React.ReactNode }) {
     return (
         <React.Fragment>
             {children}

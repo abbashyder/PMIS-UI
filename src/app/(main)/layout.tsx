@@ -1,10 +1,7 @@
 import React from "react";
 
-interface AppLayoutProps {
-    children: React.ReactNode;
-}
 
-export default function AppLayout({ children }: AppLayoutProps) {
+export default function MainLayout({ children }: { children: React.ReactNode }) {
     return (
         <React.Fragment>
             {children}
