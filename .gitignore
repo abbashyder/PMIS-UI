@@ -12,6 +12,7 @@
 /out
 
 # Environment variables
+.env*.local
 
 # OS files
 .DS_Store
