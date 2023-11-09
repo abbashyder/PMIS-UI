@@ -22,9 +22,6 @@ Thumbs.db
 # Logs
 *.log
 
-# IDEs and editors
-.vscode/
-
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
